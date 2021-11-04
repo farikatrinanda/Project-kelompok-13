@@ -1,0 +1,52 @@
+<html xmlns:th="http://www.thymeleaf.org">
+    <head th:replace="includes/base :: css"></head>
+    <body>
+        <header th:replace="includes/base :: navbar"></header>
+        <main role="main " class="container">
+            <div th:replace="includes/base :: head-content"></div>
+            <div class="container">
+                <div class="row">
+                    <div class="col-12 mt-5">
+                        <h1>Hello <span th:text="${session.name}"></span>! 
+                        </h1>
+                        <table class="table table-hover">
+                            <tr>
+                                <th>ID Member</th>
+                                <th>ID Borrow</th>
+                                <th>ID Status</th>
+                                <th>Date Borrow</th>
+                                <th>Due Date</th>
+                                <th>Date Return</th>
+                            </tr>
+                            <tr th:each="borrow : ${list}">
+                                <td th:text="${ borrow.member.name}"></td>
+                                <td th:text="${ borrow.book.title}"></td>
+                                <td th:text="${ borrow.status.name}"></td>
+                                <td th:text="${ borrow.date_borrow}"></td>
+                                <td th:text="${ borrow.due_date}"></td>
+                                <td th:text="${ borrow.date_return}"></td>
+                                <td> 
+                                    <div class="btn-group " role="group " aria-lsabel="Basic example ">
+                                        <a th:href="@{/borrow/{id}/bredit(id=${ borrow.id })}" 
+                                           class="btn btn-info text-white ">
+                                            <i class='bx bx-pencil'></i>
+                                        </a>
+                                        <form onSubmit="return confirm('Do you really want to delete?')" 
+                                              method="POST" action="#" 
+                                              th:action="@{/borrow/{id}/delete(id=${ borrow.id })}">
+                                            <button type="submit" class="btn btn-danger text-white ">
+                                                <i class='bx bx-trash'></i>
+                                            </button>
+                                        </form>
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </main>
+        <div th:replace="includes/base  :: footer"></div>
+        <div th:replace="includes/base  :: scripts"></div>
+    </body>
+</html>
