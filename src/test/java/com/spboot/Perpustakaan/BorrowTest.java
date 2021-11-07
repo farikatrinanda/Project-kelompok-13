@@ -38,11 +38,13 @@ public class BorrowTest {
 
     @MockBean
     BorrowRepository repository;
+    
     @Autowired
     private MockMvc mockMvc;
 
     @Test
     public void testCreateBorrow() throws Exception {
+        
         Member member = new Member();
         member.setId(1);
         
@@ -51,17 +53,18 @@ public class BorrowTest {
         
         Status status = new Status();
         status.setId(1);
-        
+ 
         Borrow borrow = new Borrow();
+        
         borrow.setMember(member);
         borrow.setBook(book);
         borrow.setStatus(status);
         borrow.setDate_borrow("2020-12-11");
         borrow.setDue_date("2020-12-18");
         borrow.setDate_return("2020-12-20");
-        service.brstore(borrow);
 
-    }
+         service.brstore(borrow);
+    } 
 
     @Test
     public void createBorrowWithEmptyDateBorrow() throws Exception {
@@ -94,8 +97,7 @@ public class BorrowTest {
             message = ex.getMessage();
         }
         
-        
-
+  
         Assertions.assertTrue(e instanceof Exception);
     }
 

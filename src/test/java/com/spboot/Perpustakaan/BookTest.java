@@ -53,7 +53,51 @@ public class BookTest {
     }
 
     @Test
-    public void createBookWithEmptyName() throws Exception {
+    public void createBookWithEmptyTitle() throws Exception {
+        Throwable e = null;
+        String message = null;
+
+        try {
+            Book book = new Book();
+            book.setTitle("");
+            book.setAuthor("Eriko Ono");
+            book.setPublisher("m&c");
+
+            when(repository.save(book))
+                    .thenThrow(new Exception("please fill out this field"));
+            service.bstore(book);
+        } catch (Exception ex) {
+            e = ex;
+            message = ex.getMessage();
+        }
+
+        Assertions.assertTrue(e instanceof Exception);
+    }
+    
+    @Test
+    public void createBookWithEmptyAuthor() throws Exception {
+        Throwable e = null;
+        String message = null;
+
+        try {
+            Book book = new Book();
+            book.setTitle("Hai Miiko");
+            book.setAuthor("");
+            book.setPublisher("m&c");
+
+            when(repository.save(book))
+                    .thenThrow(new Exception("please fill out this field"));
+            service.bstore(book);
+        } catch (Exception ex) {
+            e = ex;
+            message = ex.getMessage();
+        }
+
+        Assertions.assertTrue(e instanceof Exception);
+    }
+    
+    @Test
+    public void createBookWithEmptyPublisher() throws Exception {
         Throwable e = null;
         String message = null;
 
@@ -61,7 +105,7 @@ public class BookTest {
             Book book = new Book();
             book.setTitle("Hai Miiko");
             book.setAuthor("Eriko Ono");
-            book.setPublisher("m&c");
+            book.setPublisher("");
 
             when(repository.save(book))
                     .thenThrow(new Exception("please fill out this field"));

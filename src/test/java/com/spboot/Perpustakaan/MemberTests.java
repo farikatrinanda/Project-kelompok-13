@@ -69,4 +69,48 @@ public class MemberTests {
         
         Assertions.assertTrue(e instanceof Exception);
     }
+    
+    @Test
+    public void createMemberWithEmptyAddress() throws Exception {
+        Throwable e = null;
+        String message = null;
+        
+        try {
+            Member member = new Member();
+            member.setName("Rara");
+            member.setAddress("");
+            member.setPhone("01234567");
+            
+            when(repository.save(member))
+                    .thenThrow(new Exception("please fill out this field"));
+            service.mstore(member);
+        } catch (Exception ex) {
+            e = ex;
+            message = ex.getMessage();
+        }
+        
+        Assertions.assertTrue(e instanceof Exception);
+    }
+    
+    @Test
+    public void createMemberWithEmptyPhone() throws Exception {
+        Throwable e = null;
+        String message = null;
+        
+        try {
+            Member member = new Member();
+            member.setName("Rara");
+            member.setAddress("jl Cendrawasih no 30");
+            member.setPhone("");
+            
+            when(repository.save(member))
+                    .thenThrow(new Exception("please fill out this field"));
+            service.mstore(member);
+        } catch (Exception ex) {
+            e = ex;
+            message = ex.getMessage();
+        }
+        
+        Assertions.assertTrue(e instanceof Exception);
+    }
 }
